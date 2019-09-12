@@ -41,4 +41,5 @@ for image_name in os.listdir(args.source_folder):
         folder_name = key_map[code]
         shutil.copy2(image_path, os.path.join(args.res_folder, folder_name, image_name))
         if folder_name == 'AlreadyOperated':
+            os.remove(image_path)
             break
