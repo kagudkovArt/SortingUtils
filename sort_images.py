@@ -25,7 +25,8 @@ key_map = {
     ord('q'): "OtherProblems",
     ord('w'): "ThingsBeforeFace",
     ord('e'): "WrongAngle",
-    ord(' '): "AlreadyOperated"
+    ord('t'): "TwoAndMorePeople",
+    ord(' '): "AlreadyOperated",
 }
 for folder_name in key_map.values():
     os.makedirs(os.path.join(args.res_folder, folder_name), exist_ok=True)
@@ -33,7 +34,7 @@ for folder_name in key_map.values():
 for image_name in os.listdir(args.source_folder):
     image_path = os.path.join(args.source_folder, image_name)
     image = cv2.imread(image_path)
-    cv2.imshow('', image)
+    cv2.imshow(image_name, image)
     while True:
         code = cv2.waitKeyEx()
         if code not in key_map:
@@ -41,5 +42,7 @@ for image_name in os.listdir(args.source_folder):
         folder_name = key_map[code]
         shutil.copy2(image_path, os.path.join(args.res_folder, folder_name, image_name))
         if folder_name == 'AlreadyOperated' or folder_name == 'OK':
+            shutil.copy2(image_path, os.path.join(args.res_folder, 'AlreadyOperated', image_name))
             os.remove(image_path)
+            cv2.destroyAllWindows()
             break
