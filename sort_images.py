@@ -23,6 +23,7 @@ key_map = {
     ord('9'): "TwoAndMorePeople",
     ord('0'): "WrongAngle",
     ord(' '): "NotOK",
+    ord('q'): "Exit",
 }
 
 for folder_name in key_map.values():
@@ -36,6 +37,8 @@ for image_name in os.listdir(args.source_folder):
         code = cv2.waitKeyEx()
         if code not in key_map:
             continue
+        if key_map[code] == "Exit":
+            exit(0)
         folder_name = key_map[code]
         shutil.copy2(image_path, os.path.join(args.res_folder, folder_name, image_name))
         if folder_name == 'NotOK' or folder_name == 'OK':
